@@ -35,10 +35,37 @@
         <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
       </ion-item>
 
-      <div padding>
-        <button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>
-      </div>
+      <ion-item-divider>Data Pendukung</ion-item-divider>
+
+      <ion-item>
+        <ion-label fixed>TELP / HP</ion-label>
+        <ion-input type="text" name="no_telp" [(ngModel)]="account.no_telp"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Instansi</ion-label>
+        <ion-input type="text" name="instansi" [(ngModel)]="account.instansi"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Level</ion-label>
+        <ion-input type="text" name="role" [(ngModel)]="account.role"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Kecamatan</ion-label>
+        <ion-select placeholder="Pilih Kecamatan" name="kecamatan" [ngModel]="kecamatan" (ionChange)="update($event)">
+          <ion-option *ngFor="let kec of list_kecamatan" value="{{kec.id}}">{{kec.kec_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Desa/Keluarahan</ion-label>
+        <ion-select placeholder="Pilih Desa/Keluarahan" name="Keluarahan">
+          <ion-option *ngFor="let desa of list_desa" value="{{desa.id}}">{{desa.kel_name}}</ion-option>
+        </ion-select>
+      </ion-item>      
 
     </ion-list>
+
+    <div padding>
+        <button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>
+      </div>
   </form>
 </ion-content>

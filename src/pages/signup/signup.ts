@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
-import { User } from '../../providers/providers';
+import { User,Api } from '../../providers/providers';
+
 import { MainPage } from '../pages';
+
+import 'rxjs/add/operator/map';
 
 @IonicPage()
 @Component({
@@ -14,23 +17,40 @@ export class SignupPage {
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
-  account: { name: string, email: string, password: string } = {
-    name: 'Test Human',
-    email: 'test@example.com',
-    password: 'test'
+  account: { name: string, email: string, password: string, no_telp: string, instansi: string, role:string, kecamatan: string, desa: string } = {
+    name: '',
+    email: '',
+    password: '',
+    no_telp: '',
+    instansi: '',
+    role: '',
+    kecamatan: '',
+    desa: '',
   };
 
   // Our translated text strings
   private signupErrorString: string;
 
+  list_kecamatan: any;
+  list_desa: any;
+
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    public api: Api ) {
 
     this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
       this.signupErrorString = value;
     })
+
+    this.getDataKecamatan().then(data=>{
+      this.list_kecamatan = data;
+      console.log(this.list_kecamatan);
+    });
+  }
+
+  ionViewDidLoad(){
   }
 
   doSignup() {
@@ -50,4 +70,28 @@ export class SignupPage {
       toast.present();
     });
   }
+
+  getDataKecamatan(){
+    return new Promise(resolve =>{
+      this.api.get('kecamatan').subscribe(data=>{
+        resolve(data);
+      });
+    });
+  }
+
+  getDataDesa(kec_id){
+    return new Promise(resolve =>{
+      this.api.get('desa/'+kec_id).subscribe(data=>{
+        resolve(data);
+        console.log(data);
+      });
+    }).then(data=>{
+      this.list_desa = data;
+    });
+  }
+
+  update(event: any){
+    console.log(event);
+    this.getDataDesa(event);
+  } 
 }
