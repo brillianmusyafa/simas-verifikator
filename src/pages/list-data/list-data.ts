@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 // modal
 import { ModalController } from 'ionic-angular';
@@ -14,7 +14,6 @@ import { Api } from '../../providers/providers';
  * Ionic pages and navigation.
  */
 
- @IonicPage()
  @Component({
  	selector: 'page-list-data',
  	templateUrl: 'list-data.html',

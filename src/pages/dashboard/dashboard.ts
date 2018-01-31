@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { ListDataPage } from '../list-data/list-data';
 
@@ -10,7 +10,6 @@ import { ListDataPage } from '../list-data/list-data';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
