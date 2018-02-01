@@ -23,7 +23,6 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 
 // native
 import { Geolocation } from '@ionic-native/geolocation';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
 // The translate loader needs to know where to load i18n files
@@ -86,7 +85,6 @@ export function provideSettings(storage: Storage) {
     SplashScreen,
     StatusBar,
     Geolocation,
-    Camera,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }
