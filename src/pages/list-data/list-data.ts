@@ -74,12 +74,16 @@ import { Api } from '../../providers/providers';
  		}
  	}
 
- 	presetnModal() {
- 		let modal = this.modalCtrl.create(DetailVerifikasiPage);
+ 	presetnModal(item) {
+ 		let modal = this.modalCtrl.create(DetailVerifikasiPage,{data: item});
  		modal.present();
  	}
  	dismiss() {
  		this.viewCtrl.dismiss();
+ 	}
+
+ 	goToDetail(item){
+ 		this.navCtrl.push(DetailVerifikasiPage,{data:item});
  	}
 
  	getListData(){

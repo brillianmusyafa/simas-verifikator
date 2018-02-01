@@ -19,7 +19,7 @@
 <ion-content>
 <!-- <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar> -->
 <ion-list>
-  <ion-item *ngFor="let item of listdata" (click)="presetnModal()">
+  <ion-item *ngFor="let item of listdata" (click)="goToDetail(item)">
     {{ item.nama }}
     <p>{{ item.alamat }}</p>
   </ion-item>

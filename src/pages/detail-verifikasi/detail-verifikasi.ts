@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,ViewController } from 'ionic-angular';
-
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -19,10 +19,29 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
  export class DetailVerifikasiPage {
  	lat: any;
  	long: any;
+ 	data: {
+ 		nama:string,
+ 		alamat:string,
+ 		nik:string,
+ 		no_kk:string,
+ 		jenis_kelamin:string,
+ 		umur_saat_pendataan:string,
+ 		status_verifikasi: string
+ 	} = {
+ 		nama:'',
+ 		alamat:'',
+ 		nik:'',
+ 		no_kk:'',
+ 		jenis_kelamin:'',
+ 		umur_saat_pendataan:'',
+ 		status_verifikasi:'',
+ 	};
+ 	formverifikasi: {};
  	constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController,
  		public geolocation: Geolocation,
  		public camera: Camera) {
-
+ 		this.data = this.navParams.get('data');
+ 		// console.log(this.navParams.get('data'));
  		this.getCurrentLocation();
  	}
 
@@ -32,6 +51,10 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
  	dismiss() {
  		this.viewCtrl.dismiss();
+ 	}
+
+ 	setValueForm(){
+
  	}
 
  	getCurrentLocation(){
