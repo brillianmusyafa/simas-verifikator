@@ -11,7 +11,7 @@ import { Settings } from '../providers/providers';
 @Component({
   template: `<ion-menu [content]="content">
     <ion-header>
-      <ion-toolbar color="primary">
+      <ion-toolbar color="secondary">
           <ion-list class="brand">
             <ion-item>
               <ion-avatar item-start>
@@ -64,7 +64,12 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
+      // this.statusBar.styleDefault();
+      // let status bar overlay webview
+      this.statusBar.overlaysWebView(true);
+
+      // set status bar to white
+      this.statusBar.backgroundColorByHexString('#000051');
       this.splashScreen.hide();
     });
     this.initTranslate();

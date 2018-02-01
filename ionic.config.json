@@ -1,6 +1,6 @@
 {
   "name": "simas-verifikator",
-  "app_id": "",
+  "app_id": "75ff7b44",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

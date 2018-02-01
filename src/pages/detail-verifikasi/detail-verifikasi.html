@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar color="secondary">
     <ion-title>Data Detail</ion-title>
      <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -20,8 +20,17 @@
 
 
 <ion-content padding>
+  <ion-tabs>
+    <ion-tab tabIcon="water" tabTitle="Water" [root]="tab1"></ion-tab>
+    <ion-tab tabIcon="leaf" tabTitle="Life" [root]="tab2"></ion-tab>
+    <ion-tab tabIcon="flame" tabTitle="Fire" [root]="tab3"></ion-tab>
+    <ion-tab tabIcon="magnet" tabTitle="Force" [root]="tab4"></ion-tab>
+  </ion-tabs>`
+  <button ion-button>Set Lokasi</button>
+  <p>Latitude: {{lat}}</p>
+  <p>Longitude: {{long}}</p>
+  <button ion-button (click)="openCamera()">Open Camera</button>
 <ion-list>
-
   <ion-item>
     <ion-label stacked>Nama</ion-label>
     <ion-input type="text"></ion-input>
