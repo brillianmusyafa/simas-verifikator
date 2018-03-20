@@ -1,2 +1,24 @@
 page-login {
+  .logo{
+    height: 150px;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .logo img{
+  height:100%;
+  }
+
+  .bg_content{
+  	background-image:url('../../assets/bg_login.png');
+  	background-repeat:no-repeat;
+  	background-size:cover;
+  }
+
+  .wrap{
+  	background-color: #ffffff61;
+    margin: 100px 10px 10px 10px;
+    padding: 10px;
+    border-radius: 10px;
+  }
 }

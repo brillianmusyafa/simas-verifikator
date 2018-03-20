@@ -34,12 +34,17 @@ export class User {
    * the user entered on the form.
    */
   login(accountInfo: any) {
-    let seq = this.api.post('login', accountInfo).share();
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+ 
+    // let options = new RequestOptions({ headers: headers });
+
+    let seq = this.api.post('login', accountInfo);
+
 
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
       if (res.status == 'success') {
-        this._loggedIn(res);
+        console.log(res);
       } else {
       }
     }, err => {

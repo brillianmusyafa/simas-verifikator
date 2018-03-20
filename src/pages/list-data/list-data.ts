@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 
 // modal
 import { ModalController } from 'ionic-angular';
@@ -25,17 +25,29 @@ import { Api } from '../../providers/providers';
 
  	listdata: any;
  	filteredData: any;
+
+ 	loader: any;
  	constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController,public viewCtrl: ViewController,
- 		public api: Api,) {
+ 		public api: Api,
+ 		public loadingCtrl: LoadingController) {
 
  	}
 
  	ionViewDidLoad() {
+ 		this.presentLoading();
  		this.getListData();
 
  		// change title
  		this.changeTitle();
  	}
+
+ 	presentLoading(){
+     this.loader = this.loadingCtrl.create({
+       content: "Mengambil data ...",
+     });
+
+     this.loader.present();
+   }
 
  	changeTitle(){
  		let id = this.navParams.get('id');
@@ -94,6 +106,8 @@ import { Api } from '../../providers/providers';
  		}).then(data=>{
  			this.listdata = data;
  			this.filteredData = this.listdata;
+
+ 			this.loader.dismiss();
  		});
  	}
 

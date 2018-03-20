@@ -16,39 +16,38 @@
 <ion-content padding>
   <p>Latitude: {{lat}}</p>
   <p>Longitude: {{long}}</p>
-  <button ion-button (click)="openCamera()">Open Camera</button>
-  <form (ngSubmit)="Verifikasi()"></form>
+  <form (ngSubmit)="Verifikasi()">
   <ion-list>
     <ion-item>
       <ion-label stacked>Nama</ion-label>
-      <ion-input type="text" [(ngModel)]="data.nama"></ion-input>
+      <ion-input type="text" [(ngModel)]="data.nama" name="nama"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Alamat</ion-label>
-      <ion-textarea  [(ngModel)]="data.alamat"></ion-textarea>
+      <ion-textarea  [(ngModel)]="data.alamat" name="alamat"></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label stacked>NIK *</ion-label>
-      <ion-input type="text" placeholder="Mohon lengkapi NIK"  [(ngModel)]="data.nik"></ion-input>
+      <ion-input type="text" placeholder="Mohon lengkapi NIK" [(ngModel)]="data.nik" name="nik"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>NO KK *</ion-label>
-      <ion-input type="text" placeholder="Mohon lengkapi No KK"  [(ngModel)]="data.no_kk"></ion-input>
+      <ion-input type="text" placeholder="Mohon lengkapi No KK"  [(ngModel)]="data.no_kk" name="kk"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Jenis Kelamin</ion-label>
-      <ion-select [(ngModel)]="data.jenis_kelamin">
+      <ion-select [(ngModel)]="data.jenis_kelamin" name="jenis_kelamin">
         <ion-option value="1">Laki-laki</ion-option>
         <ion-option value="2">Perempuan</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label stacked>Umur Saat Pendataan</ion-label>
-      <ion-input type="text"  [(ngModel)]="data.umur_saat_pendataan"></ion-input>
+      <ion-input type="text"  [(ngModel)]="data.umur_saat_pendataan" name="umur_saat_pendataan"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Status Verifikasi</ion-label>
-      <ion-select [(ngModel)]="data.status_verifikasi" placeholder="Pilih Status Verifikasi" required="required">
+      <ion-select [(ngModel)]="data.status_verifikasi" placeholder="Pilih Status Verifikasi" required="required" name="status_verifikasi">
         <ion-option value="1">Pindah</ion-option>
         <ion-option value="2">Meninggal</ion-option>
         <ion-option value="3">Sudah Mampu</ion-option>
@@ -56,4 +55,9 @@
     </ion-item>
   </ion-list>
   <button ion-button type="submit" block>Verifikasi</button>
+  </form>
+  <!-- Foto Untuk Bukti Verifikasi -->
+  <p>Silahkan foto orang yang bersangkutan untuk bukti verifikasi</p>
+  <button ion-button (click)="openCamera()">Camera</button>
+  <button ion-button type="button" block>Upload</button>
 </ion-content>

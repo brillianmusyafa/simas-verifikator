@@ -14,15 +14,24 @@ import { Settings } from '../providers/providers';
 import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
-
+import { SettingsPageModule } from '../pages/settings/settings.module';
+// import { NavController } from 'ionic-angular';
 
 // page I created
 import { DetailVerifikasiPage } from '../pages/detail-verifikasi/detail-verifikasi';
 import { ListDataPage } from '../pages/list-data/list-data';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { LoginPageModule } from '../pages/login/login.module';
+import { SignupPageModule } from '../pages/signup/signup.module';
+
 
 // native
 import { Geolocation } from '@ionic-native/geolocation';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { DataLokalProvider } from '../providers/data-lokal/data-lokal';
+
+import { HttpModule } from '@angular/http';
+import { DataServerProvider } from '../providers/data-server/data-server';
 
 
 // The translate loader needs to know where to load i18n files
@@ -56,8 +65,12 @@ export function provideSettings(storage: Storage) {
     DashboardPage
   ],
   imports: [
+    LoginPageModule,
+    SignupPageModule,
     BrowserModule,
     HttpClientModule,
+    HttpModule,
+    SettingsPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -85,9 +98,13 @@ export function provideSettings(storage: Storage) {
     SplashScreen,
     StatusBar,
     Geolocation,
+    NativeStorage,
+    // NavController,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    DataLokalProvider,
+    DataServerProvider
   ]
 })
 export class AppModule { }

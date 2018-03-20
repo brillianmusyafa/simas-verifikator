@@ -4,5 +4,9 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [{
+    "path": "/mobile",
+    "proxyUrl": "http://project.brilliansolution.com"
+  }]
 }

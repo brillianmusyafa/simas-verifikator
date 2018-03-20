@@ -2,77 +2,118 @@ import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform } from 'ionic-angular';
+import { Config, Nav, Platform, MenuController, Events } from 'ionic-angular';
 
 import { DashboardPage } from '../pages/dashboard/dashboard';
-import { ListDataPage } from '../pages/list-data/list-data';
-import { Settings } from '../providers/providers';
+import { SettingsPage } from '../pages/settings/settings';
+import { LoginPage } from '../pages/login/login';
+import { DataLokalProvider } from '../providers/data-lokal/data-lokal';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   template: `<ion-menu [content]="content">
-    <ion-header>
-      <ion-toolbar color="secondary">
-          <ion-list class="brand">
-            <ion-item>
-              <ion-avatar item-start>
-                <img src="assets/img/pic.jpg">
-              </ion-avatar>
-              <h2>Brillian Verifikator</h2>
-              <p>Kecmatan X</p>
-              <p>Desa Y</p>
-            </ion-item>
-          </ion-list>
-        
-      </ion-toolbar>
-    </ion-header>
+  <ion-header>
+  <ion-toolbar color="secondary">
+  <ion-list class="brand">
+  <ion-item>
+  <ion-avatar item-start>
+  <img src="assets/img/pic.png">
+  </ion-avatar>
+  <h2>{{user.name}}</h2>
+  <p>{{user.kecamatan}}</p>
+  <p>{{user.kelurahan}}</p>
+  </ion-item>
+  </ion-list>
 
-    <ion-content>
-      <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-      </ion-list>
-    </ion-content>
+  </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+  <ion-list>
+  <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+  {{p.title}}
+  </button>
+  <button menuClose ion-item (click)="logout()">
+  Logout
+  </button>
+  </ion-list>
+  </ion-content>
 
   </ion-menu>
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = DashboardPage;
-
+  public rootPage:any;
   @ViewChild(Nav) nav: Nav;
-
   pages: any[] = [
-    {title: 'Setting', component: ListDataPage},
-    {title: 'Logout', component: ListDataPage},
+  {title: 'Setting', component: SettingsPage}
   ];
-  // pages: any[] = [
-  //   { title: 'Tutorial', component: 'TutorialPage' },
-  //   { title: 'Welcome', component: 'WelcomePage' },
-  //   { title: 'Tabs', component: 'TabsPage' },
-  //   { title: 'Cards', component: 'CardsPage' },
-  //   { title: 'Content', component: 'ContentPage' },
-  //   { title: 'Login', component: 'LoginPage' },
-  //   { title: 'Signup', component: 'SignupPage' },
-  //   { title: 'Master Detail', component: 'ListMasterPage' },
-  //   { title: 'Menu', component: 'MenuPage' },
-  //   { title: 'Settings', component: 'SettingsPage' },
-  //   { title: 'Search', component: 'SearchPage' }
-  // ]
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  public user: any = {
+    name: '',
+    kecamatan_id:'',
+    kecamatan: '',
+    kelurahan_id:'',
+    kelurahan: '',
+    role:''
+  };
+
+  constructor(private translate: TranslateService, 
+    platform: Platform,
+    private config: Config, 
+    private statusBar: StatusBar, 
+    private splashScreen: SplashScreen,
+    public storage: Storage,
+    public menu: MenuController,
+    public events: Events,
+    private datalokal: DataLokalProvider) {
+    this.statusBar.hide();
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       // this.statusBar.styleDefault();
       // let status bar overlay webview
-      this.statusBar.overlaysWebView(true);
+      this.statusBar.overlaysWebView(false);
 
       // set status bar to white
       this.statusBar.backgroundColorByHexString('#000051');
-      this.splashScreen.hide();
+
+      this.storage.get('userlogin').then((res)=>{
+        if(res){
+          this.user.name = res.auth.name;
+          this.user = {
+            name: res.auth.name,
+            kecamatan: res.user.kecamatan.kec_name,
+            kelurahan: res.user.kelurahan.kel_name,
+            kecamatan_id: res.user.kecamatan.id,
+            kelurahan_id: res.user.kelurahan.id
+          };
+          this.rootPage = DashboardPage;
+          this.menu.enable(true);
+        }
+        else{
+          this.rootPage = LoginPage;
+        }
+      });
+
+      // events login
+      this.events.subscribe('user:created',(data,time)=>{
+        this.user.name = data.auth.name;
+        this.user = {
+          name: data.auth.name,
+          kecamatan: data.user.kecamatan.kec_name,
+          kelurahan: data.user.kelurahan.kel_name,
+          kecamatan_id: data.user.kecamatan.id,
+          kelurahan_id: data.user.kelurahan.id
+        };
+
+      });
     });
     this.initTranslate();
+    this.splashScreen.hide();
+    this.statusBar.show();
   }
 
   initTranslate() {
@@ -105,5 +146,10 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.push(page.component);
+  }
+
+  logout(){
+    this.datalokal.clearData();
+    this.nav.setRoot(LoginPage);
   }
 }
