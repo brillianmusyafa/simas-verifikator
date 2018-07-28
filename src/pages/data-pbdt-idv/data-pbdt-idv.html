@@ -1,0 +1,246 @@
+<!--
+  Generated template for the DetailVerifikasiPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar color="secondary">
+		<ion-title>Data Detail PBDT IDV</ion-title>
+	</ion-navbar>
+	<ion-toolbar>
+		<ion-segment [(ngModel)]="semua_indikator" color="secondary">
+			<ion-segment-button value="umum">
+				<ion-icon name="list-box"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="pendidikan">
+				<ion-icon name="happy"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="kesehatan">
+				<ion-icon name="heart"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="final">
+				<ion-icon name="cloud-upload"></ion-icon>
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+	<form (ngSubmit)="Verifikasi()">
+		<div [ngSwitch]="semua_indikator">
+			<div *ngSwitchCase="'umum'">
+				<h4>Umum</h4>
+				
+				<ion-list>
+					<ion-item>
+						<ion-label stacked>Nama</ion-label>
+						<ion-input type="text" [(ngModel)]="data.nama" name="nama"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Alamat</ion-label>
+						<ion-textarea  [(ngModel)]="data.alamat" name="alamat"></ion-textarea>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>RT</ion-label>
+						<ion-textarea  [(ngModel)]="data.rt" name="rt"></ion-textarea>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>RW</ion-label>
+						<ion-textarea  [(ngModel)]="data.rw" name="rw"></ion-textarea>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>NIK *</ion-label>
+						<ion-input type="text" placeholder="Mohon lengkapi NIK" [(ngModel)]="data.nik" name="nik"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>NO KK *</ion-label>
+						<ion-input type="text" placeholder="Mohon lengkapi No KK"  [(ngModel)]="data.no_kk" name="kk"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Jenis Kelamin</ion-label>
+						<ion-select [(ngModel)]="data.jenis_kelamin" name="jenis_kelamin">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.jenis_kelamin" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Umur Saat Pendataan</ion-label>
+						<ion-input type="text"  [(ngModel)]="data.umur_saat_pendataan" name="umur_saat_pendataan"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Bekerja/Membantu Bekerja</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.bekerja_membantu_bekerja" name="bekerja_membantu_bekerja"></ion-input> -->
+						<ion-select [(ngModel)]="data.bekerja_membantu_bekerja" name="bekerja_membantu_bekerja">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.bekerja_membantu_bekerja" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Hubungan Dengan Kepala Keluarga</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.hubungan_dengan_kepala_keluarga" name="hubungan_dengan_kepala_keluarga"></ion-input> -->
+						<ion-select [(ngModel)]="data.hubungan_dengan_kepala_keluarga" name="hubungan_dengan_kepala_keluarga">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.hubungan_dengan_kepala_keluarga" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Hub. dengan Kepala Rumah Tangga</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.hubungan_dengan_kepala_rumah_tangga" name="hubungan_dengan_kepala_rumah_tangga"></ion-input> -->
+						<ion-select [(ngModel)]="data.hubungan_dengan_kepala_rumah_tangga" name="hubungan_dengan_kepala_rumah_tangga">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.hubungan_dengan_kepala_rumah_tangga" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Kepemilikan Kartu Identitas</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.kepemilikan_kartu_identitas" name="kepemilikan_kartu_identitas"></ion-input> -->
+						<ion-select [(ngModel)]="data.kepemilikan_kartu_identitas" name="kepemilikan_kartu_identitas">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.kepemilikan_kartu_identitas" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Kepemilikan Buku Nikah/Cerai</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.kepemilikan_buku_nikah_cerai" name="kepemilikan_buku_nikah_cerai"></ion-input> -->
+						<ion-select [(ngModel)]="data.kepemilikan_buku_nikah_cerai" name="kepemilikan_buku_nikah_cerai">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.kepemilikan_buku_nikah_cerai" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>lapangan Usaha dari Pekerjaan Utama</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.lapangan_usaha_dari_pekerjaan_utama" name="lapangan_usaha_dari_pekerjaan_utama"></ion-input> -->
+						<ion-select [(ngModel)]="data.lapangan_usaha_dari_pekerjaan_utama" name="lapangan_usaha_dari_pekerjaan_utama">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.lapangan_usaha_dari_pekerjaan_utama" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Nomor Urut Anggota Rumah Tangga</ion-label>
+						<ion-input type="number"  [(ngModel)]="data.nomor_urut_anggota_rumah_tangga" name="nomor_urut_anggota_rumah_tangga"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Nomor Urut Keluarga</ion-label>
+						<ion-input type="number"  [(ngModel)]="data.nomor_urut_keluarga" name="nomor_urut_keluarga"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Jumlah Jam Kerja</ion-label>
+						<ion-input type="number"  [(ngModel)]="data.jumlah_jam_kerja" name="jumlah_jam_kerja"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>status Kedudukan dalam Pekerjaan Utama</ion-label>
+						<ion-input type="text"  [(ngModel)]="data.status_kedudukan_dalam_pekerjaan_utama" name="status_kedudukan_dalam_pekerjaan_utama"></ion-input>
+						<ion-select [(ngModel)]="data.status_kedudukan_dalam_pekerjaan_utama" name="status_kedudukan_dalam_pekerjaan_utama">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.status_kedudukan_dalam_pekerjaan_utama" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Status Kesejahteraan</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.status_kesejahteraan" name="status_kesejahteraan"></ion-input> -->
+						<ion-select [(ngModel)]="data.status_kesejahteraan" name="status_kesejahteraan">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.status_kesejahteraan" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Status Perkawinan</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.status_perkawinan" name="status_perkawinan"></ion-input> -->
+						<ion-select [(ngModel)]="data.status_perkawinan" name="status_perkawinan">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.status_perkawinan" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Tercantum dalam KK</ion-label>
+						<!-- <ion-input type="text"  [(ngModel)]="data.tercantum_dalam_kk" name="tercantum_dalam_kk"></ion-input> -->
+						<ion-select [(ngModel)]="data.tercantum_dalam_kk" name="tercantum_dalam_kk">
+							<ion-option *ngFor="let ls of master_data[0]?.idv.tercantum_dalam_kk" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+				</ion-list>
+			</div>
+			<div *ngSwitchCase="'pendidikan'">
+				<h4>Pendidikan</h4>
+				<ion-list>
+					<ion-item>
+						<ion-label stacked>Ijazah Tertinggi</ion-label>
+						<!-- <ion-input type="text" [(ngModel)]="data.ijazah_tertinggi" name="ijazah_tertinggi"></ion-input> -->
+						<ion-select [(ngModel)]="data.ijazah_tertinggi" name="ijazah_tertinggi">
+							<ion-option *ngFor="let ls of master_data[0].idv.ijazah_tertinggi" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Jenjang Pendidikan Tertinggi</ion-label>
+						<!-- <ion-input type="text" [(ngModel)]="data.jenjang_pendidikan_tertinggi" name="jenjang_pendidikan_tertinggi"></ion-input> -->
+						<ion-select [(ngModel)]="data.jenjang_pendidikan_tertinggi" name="jenjang_pendidikan_tertinggi">
+							<ion-option *ngFor="let ls of master_data[0].idv.jenjang_pendidikan_tertinggi" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Kelas Tertinggi</ion-label>
+						<!-- <ion-input type="text" [(ngModel)]="data.kelas_tertinggi" name="kelas_tertinggi"></ion-input> -->
+						<ion-select [(ngModel)]="data.kelas_tertinggi" name="kelas_tertinggi">
+							<ion-option *ngFor="let ls of master_data[0].idv.kelas_tertinggi" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Status Sekolah</ion-label>
+						<ion-select [(ngModel)]="data.status_sekolah" name="status_sekolah">
+							<ion-option *ngFor="let ls of master_data[0].idv.status_sekolah" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+						<!-- <ion-input type="text" [(ngModel)]="data.status_sekolah" name="status_sekolah"></ion-input> -->
+					</ion-item>
+				</ion-list>
+			</div>
+			<div *ngSwitchCase="'kesehatan'">
+				<h4>Kesehatan</h4>
+				<ion-list>
+					<ion-item>
+						<ion-label stacked>Jenis Cacat</ion-label>
+						<!-- <ion-input type="text" [(ngModel)]="data.jenis_cacat" name="jenis_cacat"></ion-input> -->
+						<ion-select [(ngModel)]="data.jenis_cacat" name="jenis_cacat">
+							<ion-option *ngFor="let ls of master_data[0].idv.jenis_cacat" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Penyakit Kronis</ion-label>
+						<!-- <ion-input type="text" [(ngModel)]="data.penyakit_kronis" name="penyakit_kronis"></ion-input> -->
+						<ion-select [(ngModel)]="data.penyakit_kronis" name="penyakit_kronis">
+							<ion-option *ngFor="let ls of master_data[0].idv.penyakit_kronis" value="{{ls.id_indikator}}">{{ls.nm_indikator}}</ion-option>
+						</ion-select>
+					</ion-item>
+				</ion-list>
+			</div>
+			<div *ngSwitchCase="'final'">
+				<ion-list>
+					<ion-item>
+						<ion-label stacked>Status Verifikasi</ion-label>
+						<ion-select [(ngModel)]="data.status_verifikasi" placeholder="Pilih Status Verifikasi" required="required" name="status_verifikasi">
+							<ion-option value="0">Tidak Ada</ion-option>
+							<ion-option value="1">Pindah</ion-option>
+							<ion-option value="2">Meninggal</ion-option>
+							<ion-option value="3">Sudah Mampu</ion-option>
+							<ion-option value="99">Ok Terverifikasi</ion-option>
+						</ion-select>
+					</ion-item>
+				</ion-list>
+				<button *ngIf="btn_verifikasi==true" ion-button type="button" block (click)="updateData()">Verifikasi</button>
+				<button *ngIf="btn_verifikasi==false" disabled="disabled" ion-button type="button" block (click)="updateData()">Verifikasi</button>
+				<ion-card>
+
+					<ion-card-content>
+						<p>Lokasi GPS Anda: </p>
+						<p>Latitude: {{lat}}</p>
+						<p>Longitude: {{long}}</p>
+					</ion-card-content>
+
+				</ion-card>
+				<ion-card>
+					<ion-card-content>
+						<p>Silahkan foto orang yang bersangkutan untuk bukti verifikasi</p>						
+					</ion-card-content>
+				</ion-card>
+				<button ion-button (click)="openCamera()">Camera</button>
+				<button *ngIf="btn_upload==true" ion-button type="button" block (click)="saveUpload()">Upload</button>
+				<button *ngIf="btn_upload==false" disabled="disabled" ion-button type="button" block (click)="saveUpload()">Upload</button>
+			</div>
+
+			<button ion-button type="button" block (click)="kembali('DashboardPage')">Kembali</button>
+		</div>
+	</form>
+
+</ion-content>

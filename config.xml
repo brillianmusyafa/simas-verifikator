@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.brilliansolution.simas_verifikator" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.brilliansolution.simas_verifikator" version="3.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Ver SIMAS</name>
     <description>Aplikasi Verifikator Bersinergi dengan SIMAS</description>
     <author email="brillianmusyafa@gmail.com" href="http://brilliansolution.com">Brillian Musyafa</author>
@@ -83,7 +83,7 @@
     <allow-navigation href="http://192.168.214.2:8100" />
     <allow-navigation href="http://192.168.103.15:8100" />
     <allow-navigation href="http://192.168.103.14:8100" />
-    <engine name="android" spec="^6.3.0" />
+    <allow-navigation href="http://192.168.43.218:8100" />
     <plugin name="cordova-plugin-advanced-http" spec="^1.9.1" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
@@ -97,5 +97,5 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="cordova-sqlite-storage" spec="^2.2.1" />
-    <allow-navigation href="http://192.168.43.218:8100" />
+    <engine name="android" spec="^6.3.0" />
 </widget>

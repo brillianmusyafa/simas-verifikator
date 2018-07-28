@@ -35,9 +35,10 @@ import { Events } from 'ionic-angular';
   	}
 
   	clearData(){
-  		this.storage.clear().then((resp)=>{
+  		this.storage.remove('userlogin').then((resp)=>{
   			console.log('all data berhasil di clear');
   		});
+      this.storage.remove('_settings');
   	}
 
   }

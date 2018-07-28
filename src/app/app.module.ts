@@ -23,7 +23,9 @@ import { ListDataPage } from '../pages/list-data/list-data';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { LoginPageModule } from '../pages/login/login.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
-
+import { DataPbdtIdvPageModule } from '../pages/data-pbdt-idv/data-pbdt-idv.module';
+import { DataPbdtRtPageModule } from '../pages/data-pbdt-rt/data-pbdt-rt.module';
+import { DinsosJknPageModule } from '../pages/dinsos-jkn/dinsos-jkn.module';
 
 // native
 import { Geolocation } from '@ionic-native/geolocation';
@@ -69,8 +71,11 @@ export function provideSettings(storage: Storage) {
     SignupPageModule,
     BrowserModule,
     HttpClientModule,
+    DataPbdtIdvPageModule,
+    DataPbdtRtPageModule,
     HttpModule,
     SettingsPageModule,
+    DinsosJknPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

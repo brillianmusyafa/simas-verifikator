@@ -1,0 +1,91 @@
+<!--
+  Generated template for the DinsosJknPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar color="secondary">
+		<ion-title>Data Detail Dinsos JKN</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<!-- form untuk jkn -->
+	<form (ngSubmit)="simpan()">
+		<ion-list>
+			<ion-item>
+				<ion-label stacked>NOKA</ion-label>
+				<ion-input type="number" [(ngModel)]="data.NOKA" name="NOKA"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>PS NOKA</ion-label>
+				<ion-input type="number" [(ngModel)]="data.PS_NOKA" name="PS_NOKA"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Nama</ion-label>
+				<ion-input type="text" [(ngModel)]="data.NAMA" name="NAMA"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Jenis Kelamin</ion-label>
+				<ion-select [(ngModel)]="data.JENIS_KELAMIN" name="JENIS_KELAMIN" placeholder="-Pilih Jenis Kelamin">
+					<ion-option value="1">LAKI-LAKI</ion-option>
+					<ion-option value="2">PEREMPUAN</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Alamat</ion-label>
+				<ion-input type="text" [(ngModel)]="data.ALAMAT" name="ALAMAT"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>RT</ion-label>
+				<ion-input type="number" [(ngModel)]="data.RT" name="RT"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>RW</ion-label>
+				<ion-input type="number" [(ngModel)]="data.RW" name="RW"></ion-input>
+			</ion-item> 
+			<ion-item>
+				<ion-label stacked>NIK</ion-label>
+				<ion-input type="text" [(ngModel)]="data.NIK" name="NIK"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>KK</ion-label>
+				<ion-input type="number" [(ngModel)]="data.NO_KK" name="NO_KK"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Tempat Lahir</ion-label>
+				<ion-input type="text" [(ngModel)]="data.TEMPAT_LAHIR" name="TEMPAT_LAHIR"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Tanggal Lahir</ion-label>
+				<ion-input type="date" [(ngModel)]="data.TANGGAL_LAHIR" name="TANGGAL_LAHIR"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Pembiayaan</ion-label>
+				<ion-select name="PEMBIAYAAN" [(ngModel)]="data.PEMBIAYAAN" placeholder="-Pilih Pembiayaan">
+					<ion-option value="APBD KAB">APBD KAB</ion-option>
+					<ion-option value="APBD PROV">APBD PROV</ion-option>
+					<ion-option value="APBN">APBN</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Status Verifikasi</ion-label>
+				<ion-select name="STATUS_VERIFIKASI" [(ngModel)]="data.STATUS_VERIFIKASI" placeholder="-Pilih Status Verifikasi">
+					<ion-option value="1">MENINGAL</ion-option>
+					<ion-option value="2">MAMPU</ion-option>
+					<ion-option value="3">GANDA</ion-option>
+					<ion-option value="4">PINDAH</ion-option>
+					<ion-option value="5">TIDAK DITEMUKAN</ion-option>
+					<ion-option value="6">LAYAK</ion-option>
+				</ion-select>
+			</ion-item>
+		</ion-list>
+		<button *ngIf="btn_simpan==true" ion-button type="button" block (click)="simpan()">Simpan</button>
+		<button *ngIf="btn_simpan==false" disabled="disabled" ion-button type="button" block (click)="simpan()">Simpan</button>
+
+	</form>
+</ion-content>

@@ -17,48 +17,51 @@
 
 
 <ion-content>
-	<ion-slides pager autoplay="1000" loop="true" speed="1000">
-		<ion-slide style="background-color: red">
-			<h1>Slide 1</h1>
-		</ion-slide>
-		<ion-slide>
-			<h1>Slide 2</h1>
-		</ion-slide>
-		<ion-slide>
-			<h1>Slide 3</h1>
+	<ion-slides pager loop="true" speed="1000">
+		<ion-slide *ngFor="let slid of slider" [style.backgroundImage]="getBackground(slid.src)" style="background-repeat: no-repeat; background-size: cover; height: 100%">
 		</ion-slide>
 	</ion-slides>
 
 	<ion-grid>
+		<div *ngIf="data==null">
+			<ion-card>
+				<ion-card-header>
+					Notifikasi
+				</ion-card-header>
+				<ion-card-content>
+					<p>Anda belum mengatur wilayah di menu Setting.</p>
+					<p>Mohon isi data wilayah di menu Setting. Terima kasih</p>
+				</ion-card-content>
+			</ion-card>
+		</div>
 		<ion-row *ngFor="let list of data">
-				<ion-title>{{list.title}}</ion-title>
-				<ion-grid>
-					<ion-row>
-						<ion-col col-12 *ngFor="let sub of list.data" class="animated bounceInLeft">
-							<ion-card (click)="goToPage('list-data','pbdt_rt')">
-								<ion-card-header>
-									{{data.title}}
-								</ion-card-header>
-								<ion-card-content>
-									<p>{{sub.count | number}}</p>
-									<p>{{sub.title}}</p>
-									<!-- <button ion-button (click)="bukaHalaman(sub)" clear item-end>View</button> -->
-								</ion-card-content>
-
-							</ion-card>
-						</ion-col>
-					</ion-row>
-				</ion-grid>
+			<ion-title>{{list.title}}</ion-title>
+			<ion-grid>
+				<ion-row>
+					<ion-col col-12 *ngFor="let sub of list.data" class="animated bounceInLeft">
+						<ion-card (click)="goToPage('list-data',sub.id)" class="home-card">
+							<!-- <ion-card-header>
+								{{data.title}}
+							</ion-card-header> -->
+							<ion-card-content>
+								<ion-row>
+									<ion-col col-4>
+										<ion-icon name="people" class="home-icon"></ion-icon>
+									</ion-col>
+									<ion-col col-4>
+										<h1>{{sub.count | number}} of {{sub.count_all | number}}</h1>
+										<h2>{{sub.title}}</h2>
+									</ion-col>
+									<ion-col col-4>
+										<h2>Terverifikasi: {{sub.terverifikasi | number}}</h2>
+										<h2>Sisa: {{sub.sisa | number}}</h2>
+									</ion-col>
+								</ion-row>
+							</ion-card-content>
+						</ion-card>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 		</ion-row>
-		<!-- <ion-row>
-			<ion-col col-12>
-				<button ion-button large full (click)="goToPage('list-data')">PBDT RT</button>
-				<button ion-button large full (click)="goToPage('list-data')">PBDT IDV</button>
-				<button ion-button large full (click)="goToPage('list-data')">RAB-PKD PUS</button>
-				<button ion-button large full (click)="goToPage('list-data')">RAB-PKD RTLH</button>
-				<button ion-button large full (click)="goToPage('list-data')">RAB-PKD JAMBANISASI</button>
-				<button ion-button large full (click)="goToPage('list-data')">RAB-PKD DIFABEL</button>
-			</ion-col>
-		</ion-row> -->
 	</ion-grid>
 </ion-content>

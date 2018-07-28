@@ -9,6 +9,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
 import { DataLokalProvider } from '../providers/data-lokal/data-lokal';
 import { Storage } from '@ionic/storage';
+import { Api} from '../providers/api/api';
 
 
 @Component({
@@ -46,9 +47,7 @@ import { Storage } from '@ionic/storage';
 export class MyApp {
   public rootPage:any;
   @ViewChild(Nav) nav: Nav;
-  pages: any[] = [
-  {title: 'Setting', component: SettingsPage}
-  ];
+  pages: any[] = [{title: 'Setting', component: SettingsPage}];
 
   public user: any = {
     name: '',
@@ -67,10 +66,14 @@ export class MyApp {
     public storage: Storage,
     public menu: MenuController,
     public events: Events,
+    public api: Api,
     private datalokal: DataLokalProvider) {
     this.statusBar.hide();
 
     platform.ready().then(() => {
+      
+      // load slider
+      this.loadSliderOnStorage();
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       // this.statusBar.styleDefault();
@@ -83,13 +86,33 @@ export class MyApp {
       this.storage.get('userlogin').then((res)=>{
         if(res){
           this.user.name = res.auth.name;
-          this.user = {
-            name: res.auth.name,
-            kecamatan: res.user.kecamatan.kec_name,
-            kelurahan: res.user.kelurahan.kel_name,
-            kecamatan_id: res.user.kecamatan.id,
-            kelurahan_id: res.user.kelurahan.id
-          };
+          if(res.auth.role_id == 1){
+            this.user = {
+              name: res.auth.name,
+              kecamatan: 'Pusat',
+              kelurahan: '-',
+              kecamatan_id: '-',
+              kelurahan_id: '-'
+            };
+          }
+          else if(res.auth.role_id == 2){
+            this.user = {
+              name: res.auth.name,
+              kecamatan: res.user.kecamatan.kec_name,
+              kelurahan: '-',
+              kecamatan_id: '-',
+              kelurahan_id: '-'
+            };
+          }
+          else{
+            this.user = {
+              name: res.auth.name,
+              kecamatan: res.user.kecamatan.kec_name,
+              kelurahan: res.user.kelurahan.kel_name,
+              kecamatan_id: res.user.kecamatan.id,
+              kelurahan_id: res.user.kelurahan.id
+            };
+          }
           this.rootPage = DashboardPage;
           this.menu.enable(true);
         }
@@ -99,17 +122,39 @@ export class MyApp {
       });
 
       // events login
-      this.events.subscribe('user:created',(data,time)=>{
-        this.user.name = data.auth.name;
-        this.user = {
-          name: data.auth.name,
-          kecamatan: data.user.kecamatan.kec_name,
-          kelurahan: data.user.kelurahan.kel_name,
-          kecamatan_id: data.user.kecamatan.id,
-          kelurahan_id: data.user.kelurahan.id
-        };
+      this.events.subscribe('user:created',(res,time)=>{
+        this.user.name = res.auth.name;
+        if(res.auth.role_id == 1){
+          this.user = {
+            name: res.auth.name,
+            kecamatan: 'Pusat',
+            kelurahan: '-',
+            kecamatan_id: '-',
+            kelurahan_id: '-'
+          };
+        }
+        else if(res.auth.role_id == 2){
+            this.user = {
+              name: res.auth.name,
+              kecamatan: res.user.kecamatan.kec_name,
+              kelurahan: '-',
+              kecamatan_id: '-',
+              kelurahan_id: '-'
+            };
+          }
+        else{
+          this.pages = [];
+          this.user = {
+            name: res.auth.name,
+            kecamatan: res.user.kecamatan.kec_name,
+            kelurahan: res.user.kelurahan.kel_name,
+            kecamatan_id: res.user.kecamatan.id,
+            kelurahan_id: res.user.kelurahan.id
+          };
+        }
 
       });
+
     });
     this.initTranslate();
     this.splashScreen.hide();
@@ -151,5 +196,11 @@ export class MyApp {
   logout(){
     this.datalokal.clearData();
     this.nav.setRoot(LoginPage);
+  }
+
+  loadSliderOnStorage(){
+    this.api.get('slider').subscribe((val)=>{
+      this.storage.set('slider',val);
+    });
   }
 }

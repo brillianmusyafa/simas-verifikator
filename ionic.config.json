@@ -1,12 +1,14 @@
 {
   "name": "simas-verifikator",
-  "app_id": "75ff7b44",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
   },
-  "proxies": [{
-    "path": "/mobile",
-    "proxyUrl": "http://project.brilliansolution.com"
-  }]
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/mobile",
+      "proxyUrl": "http://project.brilliansolution.com"
+    }
+  ],
+  "pro_id": "75ff7b44"
 }

@@ -48,7 +48,7 @@ export class LoginPage {
     headers.append('Accept', 'application/json');
     let options = new RequestOptions({ headers: headers });
 
-    this.http.post("http://localhost:8000/mobile/login", this.account, options)
+    this.http.post("http://simas.tegalkab.go.id/mobile/login", this.account, options)
     .subscribe(data => {
       let res = data.json();
       let toast = this.toastCtrl.create({

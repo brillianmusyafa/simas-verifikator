@@ -1,5 +1,16 @@
 page-dashboard {
 	ion-slides{
-	height: 200px;
+		height: 200px;
+	}
+
+	.slider_title{
+		text-align:center;
+	}
+	.toolbar-title-ios {
+		text-align: center;
+		font-size: 2.3rem;
+		font-weight: 600;
+		color: #000;
+		pointer-events: auto;
 	}
 }

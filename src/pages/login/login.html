@@ -10,31 +10,16 @@
       <ion-list>
         <ion-item>
           <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-          <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+          <ion-input type="email" [(ngModel)]="account.email" name="email" placeholder="email"></ion-input>
         </ion-item>
-
-        <!--
-        Want to use a Username instead of an Email? Here you go:
-
         <ion-item>
-          <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
-          <ion-input type="text" [(ngModel)]="account.username" name="username"></ion-input>
+          <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
+          <ion-input type="password" [(ngModel)]="account.password" name="password" placeholder="password"></ion-input>
         </ion-item>
-      -->
-
-      <ion-item>
-        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
-      </ion-item>
-
-      <div>
-        <button ion-button color="primary" block>{{ 'LOGIN_BUTTON' | translate }}</button>
-      </div>
-
-    </ion-list>
-  </form>
-  <div style="padding-top:0px;">
-    <button ion-button color="secondary" (click)="goTo('sign-up')" block>{{ 'SIGNUP_BUTTON' | translate }}</button>
+        <div>
+          <button ion-button color="primary" block>{{ 'LOGIN_BUTTON' | translate }}</button>
+        </div>
+      </ion-list>
+    </form>
   </div>
-</div>
 </ion-content>

@@ -2,9 +2,13 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 
 // modal
-import { ModalController } from 'ionic-angular';
+import { ModalController, ToastController } from 'ionic-angular';
 import { DetailVerifikasiPage } from '../detail-verifikasi/detail-verifikasi';
+import { DataPbdtIdvPage } from '../data-pbdt-idv/data-pbdt-idv';
+import { DataPbdtRtPage } from '../data-pbdt-rt/data-pbdt-rt';
+import { DinsosJknPage } from '../dinsos-jkn/dinsos-jkn';
 
+import { Storage } from '@ionic/storage';
 import { Api } from '../../providers/providers';
 
 /**
@@ -22,15 +26,22 @@ import { Api } from '../../providers/providers';
  	searchQuery: string = '';
  	items: string[];
  	title: string;
+ 	table: string;
 
  	listdata: any;
  	filteredData: any;
 
  	loader: any;
+
+ 	page_id: any;
+ 	url:any;
  	constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController,public viewCtrl: ViewController,
  		public api: Api,
+ 		public storage: Storage,
+ 		public toastCtrl: ToastController,
  		public loadingCtrl: LoadingController) {
-
+ 		// get id page
+ 		this.page_id = this.navParams.get('id');
  	}
 
  	ionViewDidLoad() {
@@ -51,24 +62,38 @@ import { Api } from '../../providers/providers';
 
  	changeTitle(){
  		let id = this.navParams.get('id');
- 		if(id == 'pus'){
- 			this.title = "PUS";
+ 		if(id == 'aps'){
+ 			this.title = "Anak Putus Sekolah";
+ 			this.table = 'idv';
  		}
  		if(id == 'rtlh'){
  			this.title = "RTLH";
+ 			this.table = 'rt';
  		}
  		if(id == 'pbdt_rt'){
  			this.title = "PBDT RT";
+ 			this.table = 'rt';
  		}
  		if(id == 'pbdt_idv'){
  			this.title = "PBDT IDV";
+ 			this.table = 'idv';
  		}
  		if(id == 'difabel'){
  			this.title = "Difabel";
+ 			this.table = 'idv';
  		}
- 		if(id == 'jamban'){
+ 		if(id == 'odf'){
  			this.title = "Jambanisasi";
+ 			this.table = 'rt';
  		}
+
+ 		if(id == 'dinsos_jkn_apbn' || id=='dinsos_jkn_apbd1' || id=='dinsos_jkn_apbd2'){
+ 			this.title = "JKN Dinsos";
+ 			this.table = 'dinsos_jkn';
+ 			console.log('a ');
+ 		}
+
+ 		console.log(this.table);
  	}
 
  	getItems(ev: any) {
@@ -94,21 +119,57 @@ import { Api } from '../../providers/providers';
  		this.viewCtrl.dismiss();
  	}
 
+ 	// goToDetail(item){
+ 	// 	this.navCtrl.push(DetailVerifikasiPage,{data:item});
+ 	// }
+
  	goToDetail(item){
- 		this.navCtrl.push(DetailVerifikasiPage,{data:item});
+ 		console.log(this.table);
+ 		if(this.table=='rt'){
+ 			this.navCtrl.push(DataPbdtRtPage,{data:item});
+ 		}
+ 		if(this.table=='idv'){
+ 			this.navCtrl.push(DataPbdtIdvPage,{data:item});
+ 		}
+ 		if(this.table=='dinsos_jkn'){
+ 			this.navCtrl.push(DinsosJknPage,{data:item});
+ 		}
+
  	}
 
  	getListData(){
- 		return new Promise(resolve=>{
- 			this.api.get('rab_pkd/pus/3328040018').subscribe(data=>{
- 				resolve(data);
- 			});
- 		}).then(data=>{
- 			this.listdata = data;
- 			this.filteredData = this.listdata;
-
- 			this.loader.dismiss();
+ 		let kel_id:any;
+ 		this.storage.get('userlogin').then((val)=>{
+ 			// kelurahan_id
+ 			console.log('get user login');
+ 			if(val.auth.role_id == "1" || val.auth.role_id == "2"){
+ 				this.storage.get('_settings').then((res)=>{
+ 					kel_id = res.kelurahan;
+ 					this._getListData(kel_id);
+ 				});
+ 			}
+ 			else{
+ 				kel_id = val.user.kelurahan_id;
+ 				this._getListData(kel_id);
+ 			} 			
  		});
+ 	}
+
+ 	_getListData(kel_id){
+ 		this.api.get('rab_pkd/'+this.page_id+'/'+kel_id).subscribe((data)=>{
+ 				this.listdata = data;
+ 				this.filteredData = this.listdata;
+ 				this.loader.dismiss();
+ 			},(error)=>{
+ 				console.log(error);
+ 				let toast = this.toastCtrl.create({
+ 					message: 'Error Jaringan, mohon cek koneksi Anda.',
+ 					duration: 5000,
+ 					position: 'bottom'
+ 				});
+ 				this.loader.dismiss();
+ 				toast.present();
+ 			});
  	}
 
  }
